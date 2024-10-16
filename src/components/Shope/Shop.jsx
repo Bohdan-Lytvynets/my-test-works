@@ -4,6 +4,7 @@ import Loader from "../Loader/Loader";
 
 import css from "./Shop.module.css";
 import axios from "axios";
+import SearchProductForm from "../SearchProductForm/SearchProductForm";
 
 
 const Shop = () => {
@@ -11,6 +12,11 @@ const Shop = () => {
     const [products, setProducts] = useState (null);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
+    const [searchValue, setSearchValue] = useState(null);
+
+    const onSearch = (searchTerm) => {
+      setSearchValue (searchTerm);
+    }
 
     useEffect(() => {
       const fetchProducts = async () => {
@@ -31,13 +37,35 @@ const Shop = () => {
         fetchProducts();
     }, []);
 
+    useEffect(() => {
+      if (searchValue === null) return;
+
+
+      const fetchProducts = async () => {
+        try {
+          setIsLoading(true);
+  
+          const { data } = await axios.get(
+            `https://dummyjson.com/products/search?q=${searchValue}`
+          );
+          setProducts(data.products);
+        } catch (error) {
+          setError(error.message);
+        } finally {
+          setIsLoading(false);
+        }
+      };
+
+        fetchProducts();
+    }, [searchValue]);
+
 
     return (
         <div className={css.shopPage}>
             <Section>
             <h1>Products Catalog</h1>
             <div className={css.searchWrapper}>
-                <input className={css.searchImput} type="text" placeholder="Enter keyword to search" />
+                <SearchProductForm onSearch={onSearch} />
             </div>
             </Section>
             <Section title="Products list">
