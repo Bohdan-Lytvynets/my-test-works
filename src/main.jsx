@@ -1,9 +1,16 @@
-import { createRoot } from 'react-dom/client'
-import Shop from './components/Shope/Shop.jsx'
-import './index.css'
+import { createRoot } from "react-dom/client";
 
-createRoot(document.getElementById('root')).render(
+import "./index.css";
+import App from "./App";
+import { PubContextProvider } from "./context/PubContext";
+import { BrowserRouter } from "react-router-dom";
+
+createRoot(document.getElementById("root")).render(
   // <StrictMode>
-    <Shop />
-  // </StrictMode>,
-)
+  <PubContextProvider>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </PubContextProvider>
+  // </StrictMode>
+);

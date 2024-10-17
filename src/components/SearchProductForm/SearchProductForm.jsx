@@ -1,6 +1,6 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 
-import { SearchProductsSchema } from "../utils/schemas";
+import { SearchProductsSchema } from "../../utils/schemas";
 
 import css from "./SearchProductForm.module.css";
 
