@@ -14,4 +14,4 @@ const Loader = () => {
   );
 };
 
-export default Loade;
+export default Loader;
